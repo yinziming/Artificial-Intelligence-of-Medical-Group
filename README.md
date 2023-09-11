@@ -8,6 +8,7 @@
 
 一、创建代码仓库教程：
 1.首先创建自己的gihub账号并登陆，然后复制网址进入总的代码仓库[https://github.com/yinziming/Artificial-Intelligence-of-medical-Research-Group](https://github.com/yinziming/Artificial-Intelligence-of-Medical-Group)
+
 2、进入页面，点击Fork，选择Create a new fork：
 ![image](https://github.com/yinziming/Artificial-Intelligence-of-Medical-group/assets/3283050/12d26636-22bc-4060-8cd6-b3aad0cf1d4e)
 3、点击右下角createfork：
