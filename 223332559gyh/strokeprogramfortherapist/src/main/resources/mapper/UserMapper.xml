@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mybatis的DTD约束 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.baoming.dao.UserMapper">
+
+    <!-- 操作用户部分 -->
+
+    <!-- 查询用户信息 -->
+    <select id="findUser" resultMap="userMap" parameterType="java.lang.String">
+        select * from user where username=#{name}
+    </select>
+
+    <!-- 根据用户id删除用户信息 -->
+    <delete id="deleteUser" parameterType="java.lang.String">
+        delete from user where user_id=#{name}
+    </delete>
+
+
+
+</mapper>

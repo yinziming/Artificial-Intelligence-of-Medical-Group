@@ -1,0 +1,611 @@
+package rules;
+
+import com.example.strokereasoning.domain.Person;
+//---------reasoning plan--------------
+rule "st0grade"
+    when
+        $person: Person(S5q==0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst0 = {"呼吸康复技术：体位训练、气道廓清技术、被动运动训练","物理治疗：膈肌电刺激和超声等物理治疗",
+                                     "吞咽：感觉刺激，电刺激","失语：声音刺激"};
+        $person.setArraySt(arrayst0);
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice0 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                              "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                              "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice0);
+        System.out.println("<---规则st0grade执行完成--->");
+end
+rule "st1grade"
+    when
+        $person: Person(S5q<3,s5q>0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst1 = {"呼吸:康复技术：体位训练,气道廓清技术,被动运动训练","物理治疗：膈肌电刺激和超声等物理治疗",
+                             "吞咽：感觉刺激，电刺激","失语：音乐治疗"};
+        $person.setArraySt(arrayst1);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice1 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                             "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                             "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice1);
+        System.out.println("<---规则st1grade执行完成--->");
+end
+/*
+rule "st2grade"
+    when
+        $person: Person(S5q==3)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst2 = {"呼吸：体位训练，气道廓清技术，呼吸训练，运动训练，物理治疗",
+                             "吞咽：感觉刺激，口肌训练，辅助技巧，电刺激，呼吸训练，发声训练，构音训练，说话瓣膜",
+                             "失语：音乐治疗，自发语启动，口颜面肌肉训练，交流辅助装置"};
+        $person.setArraySt(arrayst2);
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice2 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                             "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                             "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice2);
+        System.out.println("<---规则st2grade执行完成--->");
+end
+*/
+rule "st30grade"
+    when
+        $person: Person(S5q>=3,Mmasa>=95,FoisGrade>=2)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst30 = {"呼吸：体位训练，气道廓清技术，呼吸训练，咳嗽训练，运动训练，物理治疗",
+                              "吞咽：感觉刺激，口肌训练，辅助技巧，电刺激，呼吸训练，发声训练，构音训练，说话瓣膜",
+                              "失语：音乐治疗，自发语启动，口颜面肌肉训练，交流辅助装置，言语促通治疗，实用交流能力训练"};
+        $person.setArraySt(arrayst30);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice30 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                              "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                              "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice30);
+        System.out.println("<---规则st30grade执行完成--->");
+end
+
+rule "st31grade"
+    when
+        $person: Person(S5q>=3,Mmasa>=95,FoisGrade>=2)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst31 = {"呼吸：体位训练，气道廓清技术，呼吸训练，咳嗽训练，运动训练，物理治疗",
+                              "吞咽：感觉刺激，口肌训练，辅助技巧，摄食训练，电刺激，呼吸训练，发声训练，构音训练，说话瓣膜",
+                              "失语：音乐治疗，自发语启动，口颜面肌肉训练，交流辅助装置，言语促通治疗，实用交流能力训练"};
+        $person.setArraySt(arrayst31);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice31 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                              "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                              "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice31);
+        System.out.println("<---规则st31grade执行完成--->");
+end
+rule "st32grade"
+    when
+        $person: Person(S5q>=3,Mmasa<95,FoisGrade>=4)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst32 = {"呼吸:体位训练，气道廓清技术，呼吸训练，咳嗽训练，运动训练，物理治疗",
+                              "吞咽：感觉刺激，口肌训练，辅助技巧，摄食训练，电刺激，呼吸训练，发声训练，构音训练，说话瓣膜",
+                              "失语：音乐治疗，自发语启动，口颜面肌肉训练，交流辅助装置，言语促通治疗，实用交流能力训练"};
+        $person.setArraySt(arrayst32);
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice32 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                              "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                              "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice32);
+        System.out.println("<---规则st32grade执行完成--->");
+end
+rule "st33grade"
+    when
+        $person: Person(S5q>=3,Mmasa<95,FoisGrade<4)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayst32 = {"呼吸:体位训练，气道廓清技术，呼吸训练，咳嗽训练，运动训练，物理治疗",
+                              "吞咽：感觉刺激，口肌训练，辅助技巧，电刺激，呼吸训练，发声训练，构音训练，说话瓣膜",
+                              "失语：音乐治疗，自发语启动，口颜面肌肉训练，交流辅助装置，言语促通治疗，实用交流能力训练"};
+        $person.setArraySt(arrayst32);
+        //      根据评估指标所对应的医嘱
+        System.out.println("ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)\n" +
+                            "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)\n" +
+                            "呼吸康复（肺功能综合训练）");
+        String[] arraySTadvice32 = {"ST治疗（吞咽床边）(运动再学习训练(MRP),吞咽障碍电刺激训练)",
+                              "ST治疗（失语床边/构音障碍床边）(言语矫正治疗,发声障碍训练)",
+                              "呼吸康复（肺功能综合训练）"};
+        $person.setArrayStAdvice(arraySTadvice32);
+        System.out.println("<---规则st4grade执行完成--->");
+end
+
+rule "pt0grade"
+    when
+        $person: Person(S5q==0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt0 =  {"每两个小时进行一次体位变换,暂不进行物理康复"};
+        $person.setArrayPt(arraypt0);
+        //      根据评估指标所对应的医嘱
+        System.out.println("每两个小时进行一次体位变换,暂不进行物理康复");
+        String[] arrayPTadvice0 =  {};
+        $person.setArrayPtAdvice(arrayPTadvice0);
+        System.out.println("<---规则pt0grade执行完成--->");
+end
+rule "pt1grade"
+    when
+        $person: Person(S5q>=1,s5q<3)
+    then
+        //      根据评估指标所对应的干预内容
+                String[] arraypt1 =  {"每2h翻身、斜躺卧位(>30°)、辅具固定体位","被动/主动关节活动、床上踏车,神经肌肉电刺激"};
+                $person.setArrayPt(arraypt1);
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "中频电疗床旁\n" +
+                            "康复踏车训练\n" +
+                            "局部电动按摩\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice1 =  {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                               "气压式血液循环驱动(器)(进口)",
+                               "中频电疗床旁",
+                               "康复踏车训练",
+                               "局部电动按摩",
+                               "疼痛治疗（GRD干扰电治疗）",
+                               "热湿疗法",
+                               "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice1);
+        System.out.println("<---规则pt1grade执行完成--->");
+end
+rule "pt2grade"
+    when
+        $person: Person(S5q==3)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt2 =  {"每2小时翻身，辅具固定体位，倚靠床上直立坐位，被动地从床移到椅子" ,
+                              "被动/主动关节活动、床上或坐位踏车；上下肢的抗阻训练；神经肌肉电刺激穴位治疗治疗"};
+        $person.setArrayPt(arraypt2);
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "下肢认知运动协调反馈训练\n" +
+                            "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                            "中频电疗床旁\n" +
+                            "电动起立床训练\n" +
+                            "康复踏车训练\n" +
+                            "悬吊治疗\n" +
+                            "局部电动按摩\n" +
+                            "足踝机器人（单侧）\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice2 =  {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                               "气压式血液循环驱动(器)(进口)",
+                               "下肢认知运动协调反馈训练",
+                               "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                               "中频电疗床旁",
+                               "电动起立床训练",
+                               "康复踏车训练",
+                               "悬吊治疗",
+                               "局部电动按摩",
+                               "足踝机器人（单侧）",
+                               "疼痛治疗（GRD干扰电治疗）",
+                               "热湿疗法",
+                               "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice2);
+        System.out.println("<---规则pt2grade执行完成--->");
+end
+rule "pt22grade"
+    when
+        $person: Person(S5q==4,BBS_Siting==0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt22 =  {"每2小时翻身，辅具固定体位，倚靠床上直立坐位，被动地从床移到椅子" ,
+                              "被动/主动关节活动、床上或坐位踏车；上下肢的抗阻训练；神经肌肉电刺激穴位治疗治疗"};
+        $person.setArrayPt(arraypt22);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "下肢认知运动协调反馈训练\n" +
+                            "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                            "中频电疗床旁\n" +
+                            "电动起立床训练\n" +
+                            "康复踏车训练\n" +
+                            "悬吊治疗\n" +
+                            "局部电动按摩\n" +
+                            "足踝机器人（单侧）\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice22 =  {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                                "气压式血液循环驱动(器)(进口)",
+                                "下肢认知运动协调反馈训练",
+                                "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                                "中频电疗床旁",
+                                "电动起立床训练",
+                                "康复踏车训练",
+                                "悬吊治疗",
+                                "局部电动按摩",
+                                "足踝机器人（单侧）",
+                                "疼痛治疗（GRD干扰电治疗）",
+                                "热湿疗法",
+                                "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice22);
+        System.out.println("<---规则pt22grade执行完成--->");
+end
+rule "pt3grade"
+    when
+        $person: Person(S5q<=5,S5q>=4,MrcSum>=36,BBS_Sit_to_stand>=0,BBS_Siting==1,BBS_Standing>=0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt3 = {"两小时体位变换，被动的从床移到椅子；坐于床边;辅助站立(2p)",
+                             "被动/主动关节活动；床上或坐位踏车；上下肢的抗阻训练；神经肌肉电刺激；ADL指导"};
+        $person.setArrayPt(arraypt3);
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "下肢认知运动协调反馈训练\n" +
+                            "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                            "中频电疗床旁\n" +
+                            "电动起立床训练\n" +
+                            "康复踏车训练\n" +
+                            "悬吊治疗\n" +
+                            "局部电动按摩\n" +
+                            "足踝机器人（单侧）\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice3 = {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                              "气压式血液循环驱动(器)(进口)",
+                              "下肢认知运动协调反馈训练",
+                              "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                              "中频电疗床旁",
+                              "电动起立床训练",
+                              "康复踏车训练",
+                              "悬吊治疗",
+                              "局部电动按摩",
+                              "足踝机器人（单侧）",
+                              "疼痛治疗（GRD干扰电治疗）",
+                              "热湿疗法",
+                              "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice3);
+        System.out.println("<---规则pt3grade执行完成--->");
+end
+rule "pt40grade"
+    when
+        $person: Person(S5q==5,MrcSum>=48,BBS_Sit_to_stand>=0,BBS_Siting==1,BBS_Standing>=0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt40 = {"两小时体位变换，被动的从床移到椅子；坐于床边;辅助站立(2p)",
+                                     "被动/主动关节活动；床上或坐位踏车；上下肢的抗阻训练；神经肌肉电刺激；ADL指导"};
+                $person.setArrayPt(arraypt40);
+                //      根据评估指标所对应的医嘱
+                System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                                    "气压式血液循环驱动(器)(进口)\n" +
+                                    "下肢认知运动协调反馈训练\n" +
+                                    "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                                    "中频电疗床旁\n" +
+                                    "电动起立床训练\n" +
+                                    "康复踏车训练\n" +
+                                    "悬吊治疗\n" +
+                                    "局部电动按摩\n" +
+                                    "足踝机器人（单侧）\n" +
+                                    "疼痛治疗（GRD干扰电治疗）\n" +
+                                    "热湿疗法\n" +
+                                    "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+                String[] arrayPTadvice40 = {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                                      "气压式血液循环驱动(器)(进口)",
+                                      "下肢认知运动协调反馈训练",
+                                      "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                                      "中频电疗床旁",
+                                      "电动起立床训练",
+                                      "康复踏车训练",
+                                      "悬吊治疗",
+                                      "局部电动按摩",
+                                      "足踝机器人（单侧）",
+                                      "疼痛治疗（GRD干扰电治疗）",
+                                      "热湿疗法",
+                                      "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice40);
+        System.out.println("<---规则pt40grade执行完成--->");
+end
+rule "pt4grade"
+    when
+        $person: Person(S5q==5,MrcSum>=48,BBS_Sit_to_stand>=0,BBS_Siting==2,BBS_Standing>=0)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt4 = {"主动床椅转移；坐于床边；辅助站立(1p)",
+                             "被动/主动关节活动；上下肢的抗阻训练；床上或坐位踏车；帮助下步行；神经肌肉电刺激；ADL指导"};
+        $person.setArrayPt(arraypt4);
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "下肢认知运动协调反馈训练\n" +
+                            "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                            "中频电疗床旁\n" +
+                            "电动起立床训练\n" +
+                            "康复踏车训练\n" +
+                            "悬吊治疗\n" +
+                            "局部电动按摩\n" +
+                            "足踝机器人（单侧）\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice4 = {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                              "气压式血液循环驱动(器)(进口)",
+                              "下肢认知运动协调反馈训练",
+                              "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                              "中频电疗床旁",
+                              "电动起立床训练",
+                              "康复踏车训练",
+                              "悬吊治疗",
+                              "局部电动按摩",
+                              "足踝机器人（单侧）",
+                              "疼痛治疗（GRD干扰电治疗）",
+                              "热湿疗法",
+                              "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice4);
+        System.out.println("<---规则pt4grade执行完成--->");
+end
+rule "pt50grade"
+    when
+        $person: Person(S5q==5,MrcSum>=48,BBS_Sit_to_stand>=1,BBS_Siting==2,BBS_Standing>=2)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt50 = {"主动床椅转移；坐于床边；辅助站立(1p)",
+                                     "被动/主动关节活动；上下肢的抗阻训练；床上或坐位踏车；帮助下步行；神经肌肉电刺激；ADL指导"};
+                $person.setArrayPt(arraypt50);
+                //      根据评估指标所对应的医嘱
+                System.out.println("PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁\n" +
+                                    "气压式血液循环驱动(器)(进口)\n" +
+                                    "下肢认知运动协调反馈训练\n" +
+                                    "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                                    "中频电疗床旁\n" +
+                                    "电动起立床训练\n" +
+                                    "康复踏车训练\n" +
+                                    "悬吊治疗\n" +
+                                    "局部电动按摩\n" +
+                                    "足踝机器人（单侧）\n" +
+                                    "疼痛治疗（GRD干扰电治疗）\n" +
+                                    "热湿疗法\n" +
+                                    "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+                String[] arrayPTadvice50 = {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                                      "气压式血液循环驱动(器)(进口)",
+                                      "下肢认知运动协调反馈训练",
+                                      "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                                      "中频电疗床旁",
+                                      "电动起立床训练",
+                                      "康复踏车训练",
+                                      "悬吊治疗",
+                                      "局部电动按摩",
+                                      "足踝机器人（单侧）",
+                                      "疼痛治疗（GRD干扰电治疗）",
+                                      "热湿疗法",
+                                      "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice50);
+        System.out.println("<---规则pt50grade执行完成--->");
+end
+rule "pt5grade"
+    when
+        $person: Person(S5q==5,MrcSum>=48,BBS_Sit_to_stand>=1,BBS_Siting==3,BBS_Standing>=2)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arraypt5 = {"主动床椅转移；坐于床边；站立",
+                             "被动/主动关节活动；上下肢的抗阻训练；坐位踏车；帮助下步行；神经肌肉电刺激；ADL指导"};
+        $person.setArrayPt(arraypt5);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("PT治疗（偏瘫）床旁/PT治疗（四肢瘫）床旁\n" +
+                            "气压式血液循环驱动(器)(进口)\n" +
+                            "下肢认知运动协调反馈训练\n" +
+                            "生物反馈治疗（SWFK肌电生物反馈治疗）\n" +
+                            "中频电疗床旁\n" +
+                            "电动起立床训练\n" +
+                            "康复踏车训练\n" +
+                            "悬吊治疗\n" +
+                            "局部电动按摩\n" +
+                            "足踝机器人（单侧）\n" +
+                            "疼痛治疗（GRD干扰电治疗）\n" +
+                            "热湿疗法\n" +
+                            "重复经颅磁刺激治疗/神经调节治疗（TDCS）");
+        String[] arrayPTadvice5 = {"PT治疗（偏瘫）床旁/ PT治疗（四肢瘫）床旁",
+                              "气压式血液循环驱动(器)(进口)",
+                              "下肢认知运动协调反馈训练",
+                              "生物反馈治疗（SWFK肌电生物反馈治疗）",
+                              "中频电疗床旁",
+                              "电动起立床训练",
+                              "康复踏车训练",
+                              "悬吊治疗",
+                              "局部电动按摩",
+                              "足踝机器人（单侧）",
+                              "疼痛治疗（GRD干扰电治疗）",
+                              "热湿疗法",
+                              "重复经颅磁刺激治疗/神经调节治疗（TDCS）"};
+        $person.setArrayPtAdvice(arrayPTadvice5);
+        System.out.println("<---规则pt5grade执行完成--->");
+end
+
+rule "ot0grade"
+    when
+        $person: Person(Rass>=-5,Rass<=-4)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayot0 = {"动态监测，暂不进行作业治疗干预"};
+        $person.setArrayOt(arrayot0);
+        //      根据评估指标所对应的医嘱
+        System.out.println("动态监测，暂不进行作业治疗干预");
+        String[] arrayOTadvice0 = {};
+        $person.setArrayOtAdvice(arrayOTadvice0);
+        System.out.println("<---规则ot0grade执行完成--->");
+end
+rule "ot1grade"
+    when
+        $person: Person(Rass>=-3,Rass<=-2)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayot1 = {"多感觉刺激(音乐、嗅觉、浅感觉等)",
+                             "情绪支持(渐进放松、冥想、正念等)"};
+        $person.setArrayOt(arrayot1);
+        //      根据评估指标所对应的医嘱
+        System.out.println("OT治疗（床旁）\n" +
+                            "OT治疗（认知训练加收）\n" +
+                            "综合消肿治疗（单侧骨关节、偏瘫）");
+        String[] arrayOTadvice1 = {"OT治疗（床旁）",
+                             "OT治疗（认知训练加收）",
+                             "综合消肿治疗（单侧骨关节、偏瘫）"};
+        $person.setArrayOtAdvice(arrayOTadvice1);
+        System.out.println("<---规则ot1grade执行完成--->");
+end
+rule "ot2grade"
+    when
+        $person: Person(Rass==-1)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayot2 = {"多感觉刺激/情绪支持(家属交流)",
+                             "认知筛查",
+                             "为ADL训练做准备(主动活动、肌力训练、转移训练、体位适应等)",
+                             "交流板",
+                             "BCI训练"};
+        $person.setArrayOt(arrayot2);
+        //      根据评估指标所对应的医嘱
+        System.out.println("OT治疗（床旁）\n" +
+                           "OT治疗（认知训练加收）\n" +
+                           "上肢认知运动协调反馈训练\n" +
+                           "上肢康复机器人\n" +
+                           "综合消肿治疗（单侧骨关节、偏瘫）\n");
+        String[] arrayOTadvice2 = {"OT治疗（床旁）",
+                             "OT治疗（认知训练加收）",
+                             "上肢认知运动协调反馈训练",
+                             "上肢康复机器人",
+                             "综合消肿治疗（单侧骨关节、偏瘫）"};
+        $person.setArrayOtAdvice(arrayOTadvice2);
+        System.out.println("<---规则ot2grade执行完成--->");
+end
+rule "ot3grade"
+    when
+        $person: Person(Rass>=0,Rass<=3)
+    then
+        //      根据评估指标所对应的干预内容
+        String[] arrayot3 = {"情绪支持(符合兴趣的作业活动)",
+                             "认知功能训练(根据评估结果针对注意力障碍、定位定向障碍、执行功能障碍等进行训练)",
+                             "BADL训练/IADL训练",
+                             "ICU日记、健康宣教（提高自知力）",
+                             "辅助器具",
+                             "BCI训练／镜像手训练",
+                             "回归社会角色的作业活动训练",
+                             "转科与出院指导(病人、家属、环境)"};
+        $person.setArrayOt(arrayot3);
+
+        //      根据评估指标所对应的医嘱
+        System.out.println("OT治疗（床旁）\n" +
+                           "OT治疗（认知训练加收）\n" +
+                           "双手主被动机器人日常活动能力训练\n" +
+                           "双手主被动机器人运动功能训练\n" +
+                           "上肢认知运动协调反馈训练\n" +
+                           "上肢康复机器人\n" +
+                           "综合消肿治疗（单侧骨关节、偏瘫）");
+        String[] arrayOTadvice3 = {"OT治疗（床旁）",
+                              "OT治疗（认知训练加收）",
+                              "双手主被动机器人日常活动能力训练",
+                              "双手主被动机器人运动功能训练",
+                              "上肢认知运动协调反馈训练",
+                              "上肢康复机器人",
+                              "综合消肿治疗（单侧骨关节、偏瘫"};
+        $person.setArrayOtAdvice(arrayOTadvice3);
+        System.out.println("<---规则ot3grade执行完成--->");
+end
+
+//-----------------------
+
+/*rule "reasoning plan"
+    when
+        $person: Person(age >= 18 , age <= 19,name=="John")
+    then
+        System.out.println($person.getName() + " is an adult.");
+end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
