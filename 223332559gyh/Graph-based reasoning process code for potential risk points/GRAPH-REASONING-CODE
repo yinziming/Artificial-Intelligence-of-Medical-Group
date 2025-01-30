@@ -1,0 +1,19 @@
+MATCH (p:Patient {id: $patient_id})  // 查找目标患者
+OPTIONAL MATCH (p)-[:have_symptom]-(s:Symptom)-[:relevant_complication]->(r1:Common_clinical_issues)  
+-[:relevant_complication]->(r2:Common_clinical_issues)// 根据症状查找风险点
+OPTIONAL MATCH (p)-[:rehabilitation_evauation]->(rs:Rehabilitation_scale)-[:relevant_complication]->(r3:Common_clinical_issues) 
+-[:relevant_complication]->(r4:Common_clinical_issues)// 根据康复量表查找风险点
+OPTIONAL MATCH (p)-[:relevant_complication]->(c:Common_clinical_issues)-[:LINKED_TO]->(r5:Common_clinical_issues)  // 根据并发症查找风险点
+
+WITH r1, r2, r3, r4, r5
+UNWIND [r1, r2, r3] AS riskPoint  // 将所有风险点合并到一个列表中
+WITH riskPoint WHERE riskPoint IS NOT NULL  // 过滤掉空值
+WHERE(rs.key="SPO2/FiO2" OR rs.key="PaO2/FiO2" AND rs.key="S5Q=5" AND rs.key=" MRCsum>=48" AND rs.key="BBS_Sit_to_stand>=0" 
+AND rs.key=" BBS_Siting=2" AND rs.key=" BBS_Standing>=0")
+RETURN riskPoint.name AS RiskNode, COUNT(*) AS Frequency 
+ORDER BY Frequency DESC  // 统计每个风险点的频次并按降序排列
+
+
+
+
+
