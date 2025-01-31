@@ -1,16 +1,57 @@
-MATCH (p:Patient {id: $patient_id})  // 查找目标患者
-OPTIONAL MATCH (p)-[:have_symptom]-(s:Symptom)-[:relevant_complication]->(r1:Common_clinical_issues)  
--[:relevant_complication]->(r2:Common_clinical_issues)// 根据症状查找风险点
-OPTIONAL MATCH (p)-[:rehabilitation_evauation]->(rs:Rehabilitation_scale)-[:relevant_complication]->(r3:Common_clinical_issues) 
--[:relevant_complication]->(r4:Common_clinical_issues)// 根据康复量表查找风险点
-OPTIONAL MATCH (p)-[:relevant_complication]->(c:Common_clinical_issues)-[:LINKED_TO]->(r5:Common_clinical_issues)  // 根据并发症查找风险点
+// 查找目标患者
+MATCH (p:Patient {id: $patient_id}) 
+// 查找脑出血节点
+OPTIONAL MATCH (p)-[:has_condition]->(s:HemorrhagicStroke) 
+// 查找脑缺血节点
+OPTIONAL MATCH (p)-[:has_condition]->(t:IschemicStroke)  
+// 保留患者节点及相关条件节点
+WITH p, s, t  
+// 判断患者是否与脑出血或脑缺血节点相连
+WHERE s IS NOT NULL OR t IS NOT NULL  // 如果患者与任何一种脑出血或脑缺血节点相连
 
-WITH r1, r2, r3, r4, r5
-UNWIND [r1, r2, r3] AS riskPoint  // 将所有风险点合并到一个列表中
-WITH riskPoint WHERE riskPoint IS NOT NULL  // 过滤掉空值
-WHERE(rs.key="SPO2/FiO2" OR rs.key="PaO2/FiO2" AND rs.key="S5Q=5" AND rs.key=" MRCsum>=48" AND rs.key="BBS_Sit_to_stand>=0" 
-AND rs.key=" BBS_Siting=2" AND rs.key=" BBS_Standing>=0")
-RETURN riskPoint.name AS RiskNode, COUNT(*) AS Frequency 
+
+// 根据症状查找风险点
+OPTIONAL MATCH (p)-[:have_symptom]-(s:Symptom)-[:relevant_complication]->(r1:Common_clinical_issues)  
+-[:relevant_complication]->(r2:Common_clinical_issues)
+// 根据康复量表查找风险点
+OPTIONAL MATCH (p)-[:rehabilitation_evauation]->(rs:Rehabilitation_scale)-[:relevant_complication]->(r3:Common_clinical_issues) 
+-[:relevant_complication]->(r4:Common_clinical_issues)
+// 根据并发症查找风险点
+OPTIONAL MATCH (p)-[:relevant_complication]->(c:Common_clinical_issues)-[:LINKED_TO]->(r5:Common_clinical_issues)  
+
+WITH r1, r2, r3, r4, r5, rs
+// 将所有风险点合并到一个列表中
+UNWIND [r1, r2, r3, r4, r5] AS riskPoint  
+// 过滤掉空值
+WITH riskPoint WHERE riskPoint IS NOT NULL  
+//选择血气分析项目
+WHERE (rs.key="SPO2/FiO2" OR rs.key="PaO2/FiO2")  
+  // 根据康复量表的特定条件过滤，选择已适符合本系统评估条件的康复量表节点
+  AND (rs.key="S5Q" AND rs.key="MRCsum" AND rs.key="BBS_Sit_to_stand") 
+  AND (rs.key="BBS_Sitting" AND rs.key="BBS_Standing")  
+
+// 遍历每个风险点的临床措施，查找与每个风险点关联的临床措施
+OPTIONAL MATCH (riskPoint)-[:Rehabilitation_therapy]->(cm:Clinical_measures) 
+// 将每个风险点的临床措施收集到列表中
+WITH riskPoint, COLLECT(cm) AS clinicalMeasures  
+
+// 遍历每个风险点的影像检查，查找与每个风险点关联的影像检查
+OPTIONAL MATCH (riskPoint)-[:Imaging_examination]->(ie:Imaging_examination) 
+// 将每个风险点的影像检查收集到列表中
+WITH riskPoint, COLLECT(ie) AS Imaging_examination  
+
+// 遍历每个风险点的药物，查找与每个风险点关联的药物
+OPTIONAL MATCH (riskPoint)-[:Medicine]->(me:Medicine) 
+// 将每个风险点的药物收集到列表中
+WITH riskPoint, COLLECT(me) AS Medicine  // 将每个风险点的临床措施收集到列表中
+
+WITH riskPoint, COUNT(*) AS frequency
+// 只保留出现频次大于1的风险点
+WHERE frequency > 1  
+// 返回风险点、频次及其关联的临床措施
+
+RETURN riskPoint.name AS RiskNode, frequency AS Frequency, [cm IN clinicalMeasures | cm.name] AS ClinicalMeasures  
+       [ie IN Imaging_examination | ie.name] AS ClinicalMeasures, [me IN Medicine | me.name] AS Medicine
 ORDER BY Frequency DESC  // 统计每个风险点的频次并按降序排列
 
 
