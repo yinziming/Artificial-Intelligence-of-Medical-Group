@@ -30,26 +30,25 @@ WHERE (rs.key="SPO2/FiO2" OR rs.key="PaO2/FiO2")
   AND (rs.key="S5Q" AND rs.key="MRCsum" AND rs.key="BBS_Sit_to_stand") 
   AND (rs.key="BBS_Sitting" AND rs.key="BBS_Standing")  
 
-// 遍历每个风险点的临床措施，查找与每个风险点关联的临床措施
+// 查找与每个风险点关联的临床措施
 OPTIONAL MATCH (riskPoint)-[:Rehabilitation_therapy]->(cm:Clinical_measures) 
 // 将每个风险点的临床措施收集到列表中
 WITH riskPoint, COLLECT(cm) AS clinicalMeasures  
 
-// 遍历每个风险点的影像检查，查找与每个风险点关联的影像检查
+// 查找每个风险点的影像检查
 OPTIONAL MATCH (riskPoint)-[:Imaging_examination]->(ie:Imaging_examination) 
 // 将每个风险点的影像检查收集到列表中
 WITH riskPoint, COLLECT(ie) AS Imaging_examination  
 
-// 遍历每个风险点的药物，查找与每个风险点关联的药物
+// 查找每个风险点连接的药物
 OPTIONAL MATCH (riskPoint)-[:Medicine]->(me:Medicine) 
-// 将每个风险点的药物收集到列表中
-WITH riskPoint, COLLECT(me) AS Medicine  // 将每个风险点的临床措施收集到列表中
+// 将每个风险点连接的药物收集到列表中
+WITH riskPoint, COLLECT(me) AS Medicine  // 将每个风险点连接的药物收集到列表中
 
 WITH riskPoint, COUNT(*) AS frequency
-// 只保留出现频次大于1的风险点
-WHERE frequency > 1  
+// 只保留出现频次大于等于1的风险点
+WHERE frequency >= 1  
 // 返回风险点、频次及其关联的临床措施
-
 RETURN riskPoint.name AS RiskNode, frequency AS Frequency, [cm IN clinicalMeasures | cm.name] AS ClinicalMeasures  
        [ie IN Imaging_examination | ie.name] AS ClinicalMeasures, [me IN Medicine | me.name] AS Medicine
 ORDER BY Frequency DESC  // 统计每个风险点的频次并按降序排列
